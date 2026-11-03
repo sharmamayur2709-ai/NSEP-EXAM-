@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSEP Physics Master - Olympiad Prep Suite</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- KaTeX for crisp mathematical formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInPage()"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            olympiad: {
+              gold: '#f59e0b',
+              navy: '#0f172a',
+              card: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.6);
+    }
+    .math-block {
+      overflow-x: auto;
+      padding: 0.35rem 0;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- TOP BANNER: THE PHYSICS ROOM BY MAYUR SIR -->
+  <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border-b border-indigo-500/30 py-3 px-4 relative overflow-hidden shadow-lg">
+    <!-- Subtle background glowing accents -->
+    <div class="absolute -top-12 left-1/4 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-12 right-1/4 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10 text-center sm:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 via-indigo-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-amber-500/20 ring-2 ring-amber-400/30">
+          <i data-lucide="compass" class="w-5 h-5 text-amber-200"></i>
+        </div>
+        <div>
+          <div class="flex items-center justify-center sm:justify-start gap-2">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 font-black tracking-wider text-base sm:text-lg uppercase drop-shadow-sm">
+              THE PHYSICS ROOM
+            </span>
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 tracking-wider">
+              BY MAYUR SIR
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium">Premier Olympiad Physics Mentorship &bull; NSEP &bull; INPhO &bull; JEE Advanced</p>
+        </div>
+      </div>
+
+      <!-- Quick Action: Share Test & Student Hotline -->
+      <div class="flex items-center gap-2">
+        <button onclick="openShareModal()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-amber-500/20 transition transform active:scale-95">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span>Share Test with Students</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+          <i data-lucide="atom" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">IAPT Stage-1</span>
+          <h1 class="text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+            NSEP <span class="text-indigo-400">PrepLab</span>
+            <span class="text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded-full font-mono">v2.4</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-800/80 p-1.5 rounded-2xl border border-slate-700/60">
+        <button onclick="switchTab('mock')" id="nav-mock" class="nav-btn px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all bg-indigo-600 text-white shadow-md">
+          <i data-lucide="play-circle" class="w-4 h-4"></i> Mock Test
+        </button>
+        <button onclick="switchTab('formulas')" id="nav-formulas" class="nav-btn px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-700/50">
+          <i data-lucide="book-open" class="w-4 h-4"></i> Formula Vault
+        </button>
+        <button onclick="switchTab('ai-tutor')" id="nav-ai-tutor" class="nav-btn px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-700/50">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i> AI Physics Mentor
+        </button>
+        <button onclick="switchTab('generator')" id="nav-generator" class="nav-btn px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-700/50">
+          <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> Problem Forge
+        </button>
+        <button onclick="switchTab('syllabus')" id="nav-syllabus" class="nav-btn px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-700/50">
+          <i data-lucide="pie-chart" class="w-4 h-4"></i> Analysis & Guide
+        </button>
+      </nav>
+
+      <!-- Status indicator & Three-Line Drawer Trigger (Right side) -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 bg-slate-800 border border-slate-700 text-xs px-3 py-1.5 rounded-full text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Target: <strong class="text-white">NSEP 2026</strong></span>
+        </div>
+        <!-- 3-line hamburger menu button for all devices -->
+        <button id="rightMenuToggleBtn" onclick="toggleRightDrawer()" aria-label="Open Navigation Menu" class="p-2.5 text-slate-300 hover:text-white bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 rounded-xl transition flex items-center justify-center shadow-sm">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIDE DRAWER NAVIGATION (Opens when 3-line hamburger menu at right is clicked) -->
+  <div id="drawerBackdrop" onclick="toggleRightDrawer()" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden transition-opacity duration-300"></div>
+  <aside id="rightDrawer" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-slate-900 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col justify-between overflow-y-auto">
+    <div>
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-indigo-600 flex items-center justify-center text-white">
+            <i data-lucide="compass" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-xs font-black text-amber-300 uppercase tracking-wider">The Physics Room</h3>
+            <p class="text-[11px] text-slate-400">By Mayur Sir</p>
+          </div>
+        </div>
+        <button onclick="toggleRightDrawer()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Links -->
+      <div class="p-4 space-y-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 block mb-2">Sections</span>
+        <button onclick="drawerNavigate('mock')" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs font-semibold flex items-center justify-between text-slate-200 hover:bg-slate-800 transition">
+          <div class="flex items-center gap-3">
+            <i data-lucide="play-circle" class="w-4 h-4 text-indigo-400"></i>
+            <span>Mock Test Simulator</span>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">Active</span>
+        </button>
+
+        <button onclick="drawerNavigate('formulas')" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs font-semibold flex items-center justify-between text-slate-200 hover:bg-slate-800 transition">
+          <div class="flex items-center gap-3">
+            <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+            <span>Formula Vault</span>
+          </div>
+          <span id="drawerFormulaBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">26 Formulas</span>
+        </button>
+
+        <button onclick="drawerNavigate('ai-tutor')" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs font-semibold flex items-center gap-3 text-slate-200 hover:bg-slate-800 transition">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+          <span>AI Physics Mentor</span>
+        </button>
+
+        <button onclick="drawerNavigate('generator')" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs font-semibold flex items-center gap-3 text-slate-200 hover:bg-slate-800 transition">
+          <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+          <span>Problem Forge (AI)</span>
+        </button>
+
+        <button onclick="drawerNavigate('syllabus')" class="w-full text-left px-3.5 py-3 rounded-2xl text-xs font-semibold flex items-center gap-3 text-slate-200 hover:bg-slate-800 transition">
+          <i data-lucide="pie-chart" class="w-4 h-4 text-sky-400"></i>
+          <span>Exam Pattern & Guide</span>
+        </button>
+
+        <div class="pt-4 mt-3 border-t border-slate-800 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 block mb-1">Quick Tools</span>
+          <button onclick="openConfigModal(); toggleRightDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-300 hover:bg-slate-800">
+            <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
+            <span>Configure Syllabus & Mode</span>
+          </button>
+          <button onclick="openShareModal(); toggleRightDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-300 hover:bg-slate-800">
+            <i data-lucide="share-2" class="w-4 h-4 text-indigo-400"></i>
+            <span>Share Test Link</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/60 text-center">
+      <p class="text-[11px] text-slate-400 font-medium">The Physics Room &bull; Mayur Sir</p>
+      <p class="text-[10px] text-slate-500 mt-0.5">National Standard Exam in Physics</p>
+    </div>
+  </aside>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- TAB 1: MOCK TEST SIMULATOR -->
+    <section id="tab-mock" class="tab-pane block">
+
+      <!-- PRE-EXAM LAUNCH SCREEN (Instructions & Start Exam Gate) -->
+      <div id="preExamScreen" class="max-w-3xl mx-auto bg-slate-800/90 border border-slate-700 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
+        <div class="text-center space-y-3 border-b border-slate-700/80 pb-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold tracking-wide uppercase">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i> Official Examination Hall
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            NSEP Stage-1 Physics Mock Test
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+            Conducted under the mentorship of <span class="text-amber-400 font-bold">The Physics Room by Mayur Sir</span>. Read the guidelines carefully before starting.
+          </p>
+        </div>
+
+        <!-- Selected Paper Details -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-700 text-center">
+            <span class="text-[11px] text-slate-400 block uppercase font-bold tracking-wider">Test Syllabus</span>
+            <span id="preTestSyllabusLabel" class="text-sm font-bold text-indigo-400 mt-1 block">Full Syllabus Mock</span>
+          </div>
+          <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-700 text-center">
+            <span class="text-[11px] text-slate-400 block uppercase font-bold tracking-wider">Questions</span>
+            <span id="preTestQuestionCount" class="text-sm font-bold text-white mt-1 block">-- Questions</span>
+          </div>
+          <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-700 text-center">
+            <span class="text-[11px] text-slate-400 block uppercase font-bold tracking-wider">Total Duration</span>
+            <span id="preTestDurationLabel" class="text-sm font-bold text-amber-400 mt-1 block font-mono">60 Minutes</span>
+          </div>
+        </div>
+
+        <!-- Instructions Checklist -->
+        <div class="bg-slate-900/70 border border-slate-700/80 rounded-2xl p-5 space-y-3 text-xs text-slate-300 leading-relaxed">
+          <h4 class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-2 text-indigo-400">
+            <i data-lucide="info" class="w-4 h-4"></i> Candidate Instructions:
+          </h4>
+          <ul class="space-y-2 list-disc list-inside">
+            <li><strong>Part A1 (Single Correct):</strong> Marking is <span class="text-emerald-400 font-semibold">+3</span> for correct and <span class="text-rose-400 font-semibold">-1</span> for incorrect response.</li>
+            <li><strong>Part A2 (Multiple Correct):</strong> Marking is <span class="text-emerald-400 font-semibold">+4</span> only if all correct options and zero incorrect ones are selected. <span class="text-amber-300">No negative marking</span>.</li>
+            <li>The test timer will begin the exact instant you click <strong>"Start Examination"</strong> below.</li>
+            <li>You can change your target chapters or test mode anytime using the <strong>"Configure Syllabus"</strong> button below.</li>
+          </ul>
+        </div>
+
+        <!-- Pre-exam action buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button onclick="openConfigModal()" class="w-full sm:w-auto px-4 py-3 rounded-2xl bg-slate-700/80 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold flex items-center justify-center gap-2 border border-slate-600 transition">
+              <i data-lucide="sliders" class="w-4 h-4 text-amber-400"></i>
+              <span>Select Chapter / Mode</span>
+            </button>
+            <button onclick="openShareModal()" class="w-full sm:w-auto px-4 py-3 rounded-2xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-bold flex items-center justify-center gap-2 border border-indigo-500/40 transition">
+              <i data-lucide="share-2" class="w-4 h-4 text-amber-400"></i>
+              <span>Share Link</span>
+            </button>
+          </div>
+
+          <button onclick="startExaminationNow()" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-emerald-500/20 transform active:scale-95 transition">
+            <i data-lucide="play" class="w-5 h-5 fill-current"></i>
+            <span>Start Examination</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ACTIVE TEST INTERFACE (Hidden until student clicks "Start Examination") -->
+      <div id="activeExamContainer" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+        
+        <!-- Question Pane (Cols 1-3) -->
+        <div class="lg:col-span-3 space-y-5">
+          <!-- Test Header Card -->
+          <div class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <span id="qBadgeType" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                Part A1: Single Correct (+3, -1)
+              </span>
+              <span id="qBadgeTopic" class="px-2.5 py-1 rounded-full text-xs bg-slate-700 text-slate-300">
+                Rotational Dynamics
+              </span>
+              <span id="activeTestModeBadge" class="px-2.5 py-1 rounded-full text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-medium">
+                Full Syllabus
+              </span>
+            </div>
+            
+            <!-- Timer & Actions -->
+            <div class="flex items-center gap-3">
+              <button onclick="openShareModal()" title="Share this custom test link" class="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-xs text-indigo-300 hover:text-white rounded-xl border border-indigo-500/40 flex items-center gap-1.5 transition">
+                <i data-lucide="share-2" class="w-3.5 h-3.5 text-amber-400"></i> Share Link
+              </button>
+              <button onclick="openConfigModal()" title="Change Chapter / Test Mode" class="px-3 py-1.5 bg-slate-700/70 hover:bg-slate-700 text-xs text-slate-200 hover:text-white rounded-xl border border-slate-600 flex items-center gap-1.5 transition">
+                <i data-lucide="sliders" class="w-3.5 h-3.5 text-amber-400"></i> Mode & Chapters
+              </button>
+              <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 px-3.5 py-1.5 rounded-xl font-mono text-sm">
+                <i data-lucide="timer" class="w-4 h-4 text-amber-400"></i>
+                <span id="timerText" class="font-bold text-amber-300">60:00</span>
+              </div>
+              <button onclick="resetTest()" title="Restart Mock" class="p-2 hover:bg-slate-700 rounded-xl text-slate-400 hover:text-white transition">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Question Box -->
+          <div class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+            <div class="flex justify-between items-start mb-4">
+              <div class="text-xs uppercase tracking-wider font-bold text-indigo-400 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                <span id="currentQuestionLabel">Question 1 of 8</span>
+              </div>
+              <span id="markingSchemeLabel" class="text-xs font-mono text-slate-400 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-700">
+                Marks: +3 | -1
+              </span>
+            </div>
+
+            <!-- Question Statement -->
+            <div id="questionStatement" class="text-base sm:text-lg font-medium text-slate-100 leading-relaxed min-h-[90px] mb-6">
+              Loading problem...
+            </div>
+
+            <!-- Options Grid -->
+            <div id="optionsContainer" class="space-y-3 mb-6">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Solution & Explanation Panel (Appears after submission or review) -->
+            <div id="solutionPanel" class="hidden mt-6 p-5 rounded-2xl bg-slate-900/90 border border-indigo-900/60 transition-all">
+              <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm mb-2">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                <span>NSEP Official Derivation & Solution:</span>
+              </div>
+              <div id="solutionText" class="text-sm text-slate-300 leading-relaxed font-sans"></div>
+            </div>
+
+            <!-- Bottom Control Strip -->
+            <div class="pt-6 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <button onclick="prevQuestion()" id="prevBtn" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i> Prev
+                </button>
+                <button onclick="nextQuestion()" id="nextBtn" class="px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 flex items-center gap-1.5 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                  Next <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+                <button onclick="clearCurrentSelection()" class="px-3 py-2.5 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition">
+                  Clear
+                </button>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <button onclick="toggleHint()" id="hintBtn" class="px-3.5 py-2.5 rounded-xl border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-semibold flex items-center gap-1.5 transition">
+                  <i data-lucide="lightbulb" class="w-4 h-4"></i> Hint
+                </button>
+                <button onclick="verifyCurrentQuestion()" id="checkBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition">
+                  <i data-lucide="check" class="w-4 h-4"></i> Check Answer
+                </button>
+              </div>
+            </div>
+
+            <!-- Inline Hint Box -->
+            <div id="hintBox" class="hidden mt-4 p-3.5 rounded-xl bg-amber-950/40 border border-amber-600/40 text-amber-200 text-xs leading-relaxed flex items-start gap-2">
+              <i data-lucide="info" class="w-4 h-4 shrink-0 text-amber-400 mt-0.5"></i>
+              <span id="hintContent"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar (Col 4) : Question Palette & Scorecard -->
+        <div class="space-y-5">
+          <!-- Score summary -->
+          <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-5 shadow-lg">
+            <h3 class="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center justify-between">
+              <span>Current Score</span>
+              <span id="testScoreBadge" class="text-base font-mono font-bold text-amber-400">0 / 27 pts</span>
+            </h3>
+
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-700/60">
+                <span class="block text-emerald-400 font-bold text-lg" id="statCorrect">0</span>
+                <span class="text-slate-400 text-[11px]">Correct</span>
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-700/60">
+                <span class="block text-rose-400 font-bold text-lg" id="statWrong">0</span>
+                <span class="text-slate-400 text-[11px]">Wrong</span>
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-700/60">
+                <span class="block text-slate-300 font-bold text-lg" id="statAttempted">0/8</span>
+                <span class="text-slate-400 text-[11px]">Done</span>
+              </div>
+            </div>
+
+            <!-- Palette Grid -->
+            <div class="mt-5">
+              <span class="text-[11px] font-semibold text-slate-400 block mb-2.5">Question Navigator:</span>
+              <div id="paletteGrid" class="grid grid-cols-4 gap-2">
+                <!-- Dynamically populated buttons -->
+              </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-700 flex flex-col gap-2 text-[11px] text-slate-400">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Correct (+3 / +4)
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span> Wrong (-1)
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-indigo-500 inline-block"></span> Selected
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-slate-700 inline-block"></span> Unattempted
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tip for NSEP -->
+          <div class="bg-gradient-to-br from-indigo-950/60 to-slate-900 border border-indigo-800/40 p-4 rounded-2xl text-xs space-y-2">
+            <div class="flex items-center gap-2 text-indigo-300 font-bold">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+              <span>NSEP Strategy Rule:</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed text-[12px]">
+              In Part A2 (multi-correct), there is <strong>no negative marking</strong>, but you only earn marks if <em>all correct options and no incorrect ones</em> are chosen. Never guess blindly, but always mark verified options!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: FORMULA VAULT -->
+    <section id="tab-formulas" class="tab-pane hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="zap" class="text-amber-400 w-5 h-5"></i>
+              NSEP High-Yield Physics Formula Vault
+            </h2>
+            <span id="formulaTotalCountBadge" class="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              26 Formulas
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Olympiad-standard expressions, dimensional tricks, and frequently tested results across all 5 modules.</p>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+            <input type="text" id="formulaSearch" oninput="filterFormulas()" placeholder="Search formulas, concepts..." class="bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 w-48 sm:w-64">
+          </div>
+          <select id="formulaCategorySelect" onchange="filterFormulas()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+            <option value="all">All Modules</option>
+            <option value="Mechanics">Mechanics & Rigid Body</option>
+            <option value="Electrodynamics">Electrodynamics & Magnetism</option>
+            <option value="Optics">Waves & Optics</option>
+            <option value="Thermodynamics">Thermodynamics & Kinetic Theory</option>
+            <option value="Modern Physics">Modern Physics & Quantum</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Formula Cards Grid -->
+      <div id="formulaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 3: AI PHYSICS MENTOR -->
+    <section id="tab-ai-tutor" class="tab-pane hidden space-y-6">
+      <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6 sm:p-8 relative">
+        <div class="max-w-3xl">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            AI-Powered Doubt Resolver
+          </span>
+          <h2 class="text-2xl font-black text-white mt-3 tracking-tight">
+            IAPT Physics Olympiad Mentor
+          </h2>
+          <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+            Stuck on a tricky question, an advanced boundary condition, or a calculus-heavy physics derivation? Ask for a rigorous, Olympiad-level breakdown with LaTeX formatting.
+          </p>
+        </div>
+
+        <!-- Pre-suggested quick queries -->
+        <div class="mt-5 flex flex-wrap gap-2">
+          <button onclick="setQueryAndAsk('Derive the moment of inertia of a uniform solid cone of mass M, radius R, height H about its central axis.')" class="text-xs bg-slate-900 hover:bg-indigo-950 border border-slate-700 hover:border-indigo-500 text-slate-300 px-3 py-1.5 rounded-lg transition">
+            📐 Solid Cone Inertia Derivation
+          </button>
+          <button onclick="setQueryAndAsk('Explain the method of electrical images for a point charge near an earthed conducting sphere.')" class="text-xs bg-slate-900 hover:bg-indigo-950 border border-slate-700 hover:border-indigo-500 text-slate-300 px-3 py-1.5 rounded-lg transition">
+            ⚡ Image Charges for Spheres
+          </button>
+          <button onclick="setQueryAndAsk('Explain how to analyze rolling without slipping on an accelerating inclined plane using non-inertial frames and pseudo torque.')" class="text-xs bg-slate-900 hover:bg-indigo-950 border border-slate-700 hover:border-indigo-500 text-slate-300 px-3 py-1.5 rounded-lg transition">
+            🔄 Pseudo-Torque in Rolling
+          </button>
+          <button onclick="setQueryAndAsk('What are the most common traps in NSEP multiple-correct (Part A2) questions in modern physics?')" class="text-xs bg-slate-900 hover:bg-indigo-950 border border-slate-700 hover:border-indigo-500 text-slate-300 px-3 py-1.5 rounded-lg transition">
+            🎯 Part A2 Modern Physics Traps
+          </button>
+        </div>
+
+        <!-- Chat / Output Box -->
+        <div class="mt-6 space-y-4">
+          <div id="mentorConversation" class="min-h-[220px] max-h-[460px] overflow-y-auto custom-scrollbar bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4 text-sm leading-relaxed">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shrink-0 text-white font-bold text-xs">
+                AI
+              </div>
+              <div class="bg-slate-800/90 p-4 rounded-2xl rounded-tl-sm border border-slate-700 text-slate-200">
+                <p class="font-medium text-white mb-1">Greetings, future physics Olympian!</p>
+                <p>I am your specialized NSEP mentor. You can prompt me for:</p>
+                <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300 text-xs">
+                  <li>Step-by-step calculus derivations (Variable mass, Biot-Savart, Heat Conduction).</li>
+                  <li>Doubt-solving for Irodov, Krotov, or past 10-year NSEP questions.</li>
+                  <li>Physical intuition and dimensional analysis shortcuts.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input bar -->
+          <div class="flex gap-2">
+            <textarea id="mentorInput" rows="2" placeholder="Type your physics question or concept doubt here..." class="flex-1 bg-slate-900 border border-slate-700 rounded-2xl p-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+            <button onclick="askMentor()" id="mentorSendBtn" class="px-6 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-semibold rounded-2xl flex flex-col items-center justify-center gap-1 shadow-lg shadow-indigo-600/30 transition disabled:opacity-50">
+              <i data-lucide="send" class="w-5 h-5"></i>
+              <span class="text-[11px]">Solve</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PROBLEM FORGE (AI GENERATOR) -->
+    <section id="tab-generator" class="tab-pane hidden space-y-6">
+      <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700/80 pb-6">
+          <div>
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              Live Custom Problem Generator
+            </span>
+            <h2 class="text-2xl font-black text-white mt-2">
+              NSEP Olympiad Question Forge
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Generate brand-new, unseen Olympiad questions with precise marking keys.</p>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex flex-wrap items-center gap-3">
+            <select id="genTopic" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="Rotational Dynamics & Gyroscopic Precession">Rotational Dynamics</option>
+              <option value="Electromagnetic Induction & RL-RC circuits">EMI & AC Circuits</option>
+              <option value="Wave Optics, Interference & Polarization">Wave Optics & Interference</option>
+              <option value="Thermodynamic Cycles & Real Gases">Thermodynamics & Entropy</option>
+              <option value="Relativistic kinematics & de Broglie waves">Modern Physics & Photons</option>
+              <option value="Electrostatics with Dielectrics & Gauss Law">Electrostatics & Dielectrics</option>
+            </select>
+
+            <select id="genFormat" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500">
+              <option value="Part A1: Single Correct (+3, -1)">Part A1 (Single Correct)</option>
+              <option value="Part A2: Multiple Correct (+4, 0)">Part A2 (Multi-Correct)</option>
+            </select>
+
+            <button onclick="generateCustomProblem()" id="forgeBtn" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> Forge Problem
+            </button>
+          </div>
+        </div>
+
+        <!-- Generated Problem Display -->
+        <div id="forgeResultArea" class="mt-6">
+          <div id="forgePlaceholder" class="p-12 text-center border-2 border-dashed border-slate-700 rounded-2xl text-slate-400 text-sm">
+            <i data-lucide="hammer" class="w-10 h-10 mx-auto text-slate-600 mb-3"></i>
+            <p class="font-medium text-slate-300">No problem forged yet.</p>
+            <p class="text-xs text-slate-500 mt-1">Select a topic and question format above, then click <strong>"Forge Problem"</strong> to summon Gemini.</p>
+          </div>
+
+          <div id="forgeCard" class="hidden bg-slate-900/90 border border-slate-700 rounded-2xl p-6 space-y-5">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SYLLABUS & STRATEGY GUIDE -->
+    <section id="tab-syllabus" class="tab-pane hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Exam Structure & Weightage -->
+        <div class="md:col-span-2 space-y-6">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6 sm:p-7">
+            <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+              <i data-lucide="award" class="text-amber-400 w-5 h-5"></i>
+              NSEP Exam Pattern & Marking Blueprint
+            </h3>
+            <p class="text-xs text-slate-400 mb-6">Conducted annually by the Indian Association of Physics Teachers (IAPT).</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Part A1 (Single Correct)</span>
+                  <span class="text-xs font-mono bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded">60 Questions</span>
+                </div>
+                <div class="mt-3 space-y-1 text-xs text-slate-300">
+                  <p>• <strong>Marking:</strong> <span class="text-emerald-400 font-bold">+3</span> for correct, <span class="text-rose-400 font-bold">-1</span> for wrong.</p>
+                  <p>• <strong>Max Marks:</strong> 180 Marks</p>
+                  <p>• <strong>Focus:</strong> Conceptual speed, dimensional analysis, standard standard results.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-700">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Part A2 (Multiple Correct)</span>
+                  <span class="text-xs font-mono bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">10 Questions</span>
+                </div>
+                <div class="mt-3 space-y-1 text-xs text-slate-300">
+                  <p>• <strong>Marking:</strong> <span class="text-emerald-400 font-bold">+4</span> if all correct are chosen, <strong>0</strong> otherwise.</p>
+                  <p>• <strong>Max Marks:</strong> 40 Marks</p>
+                  <p>• <strong>Penalty:</strong> <span class="text-amber-300 font-semibold">No negative marks</span>, but strict all-or-nothing.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject-wise Weightage Table -->
+            <div class="mt-6">
+              <h4 class="text-sm font-bold text-white mb-3">Historical Topic-Wise Marks Distribution:</h4>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-300">
+                  <thead class="bg-slate-900 text-slate-400 font-semibold uppercase text-[10px]">
+                    <tr>
+                      <th class="p-3 rounded-l-xl">Domain</th>
+                      <th class="p-3">Avg. Questions</th>
+                      <th class="p-3">Weightage (%)</th>
+                      <th class="p-3 rounded-r-xl">Key Topics</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-800">
+                    <tr>
+                      <td class="p-3 font-medium text-white">Classical Mechanics</td>
+                      <td class="p-3">22 - 26</td>
+                      <td class="p-3 text-indigo-400 font-bold">~35%</td>
+                      <td class="p-3 text-slate-400">Rotation, Center of Mass, Gravitation, SHM, Fluid Dynamics</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-medium text-white">Electromagnetism</td>
+                      <td class="p-3">18 - 22</td>
+                      <td class="p-3 text-indigo-400 font-bold">~28%</td>
+                      <td class="p-3 text-slate-400">Gauss Law, Dielectrics, Ampere Law, EMI, AC, Poynting Vector</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-medium text-white">Optics & Wave Physics</td>
+                      <td class="p-3">10 - 13</td>
+                      <td class="p-3 text-indigo-400 font-bold">~16%</td>
+                      <td class="p-3 text-slate-400">Wave Optics (YDSE with thin films), Fermat's Principle, Doppler</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-medium text-white">Thermodynamics & KTG</td>
+                      <td class="p-3">8 - 10</td>
+                      <td class="p-3 text-indigo-400 font-bold">~12%</td>
+                      <td class="p-3 text-slate-400">Carnot Efficiency, Entropy change, Mean free path, Real gases</td>
+                    </tr>
+                    <tr>
+                      <td class="p-3 font-medium text-white">Modern Physics</td>
+                      <td class="p-3">6 - 8</td>
+                      <td class="p-3 text-indigo-400 font-bold">~9%</td>
+                      <td class="p-3 text-slate-400">Bohr Model, Photoelectric, de Broglie, Nuclear Decay, X-Rays</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Golden Strategy & Cutoff insights -->
+        <div class="space-y-6">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6">
+            <h4 class="text-sm font-bold text-amber-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <i data-lucide="target" class="w-4 h-4"></i> MI & MAS Criteria
+            </h4>
+            <div class="space-y-3 text-xs text-slate-300 leading-relaxed">
+              <p>
+                <strong>MAS (Minimum Admissible Score):</strong> 50% of the average of the top 10 scores nationwide.
+              </p>
+              <p>
+                <strong>MI (Merit Index):</strong> 80% of the average of top 10 scores. Scoring above MI guarantees selection to INPhO (Stage 2).
+              </p>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-200">
+                <span class="block text-[11px] text-slate-400">Target Score for INPhO:</span>
+                <span class="text-xl font-bold font-mono text-emerald-400">135 - 150 / 220</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-6">
+            <h4 class="text-sm font-bold text-white mb-3">Recommended Books</h4>
+            <ul class="space-y-2 text-xs text-slate-300">
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-400 font-bold">1.</span>
+                <span><strong>H.C. Verma:</strong> Concepts of Physics (Vol 1 & 2) - Core foundation.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-400 font-bold">2.</span>
+                <span><strong>I.E. Irodov:</strong> Problems in General Physics - Mechanics & Electrodynamics.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-400 font-bold">3.</span>
+                <span><strong>Halliday, Resnick, Krane:</strong> Vol 1 & 2 - Deep theoretical nuance.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-indigo-400 font-bold">4.</span>
+                <span><strong>S.S. Krotov:</strong> Aptitude Test in Physics - Ideal for multi-concept Stage 1/2.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TEST CONFIGURATION MODAL (Chapterwise / Multi-chapter / Full Syllabus) -->
+  <div id="configModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl relative space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Configure Test Syllabus</h3>
+            <p class="text-xs text-slate-400">Select chapter-wise, combined units, or complete full mock.</p>
+          </div>
+        </div>
+        <button onclick="closeConfigModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Mode Selector Tabs -->
+      <div class="grid grid-cols-3 gap-2">
+        <button id="scopeBtn-full" onclick="setModalScope('full')" class="scope-btn p-3 rounded-2xl border text-xs font-bold text-center transition flex flex-col items-center gap-1.5 border-indigo-500 bg-indigo-950/50 text-white">
+          <i data-lucide="globe" class="w-4 h-4 text-amber-400"></i>
+          <span>Full Syllabus</span>
+        </button>
+        <button id="scopeBtn-chapterwise" onclick="setModalScope('chapterwise')" class="scope-btn p-3 rounded-2xl border text-xs font-bold text-center transition flex flex-col items-center gap-1.5 border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600">
+          <i data-lucide="bookmark" class="w-4 h-4 text-indigo-400"></i>
+          <span>Single Chapter</span>
+        </button>
+        <button id="scopeBtn-multiple" onclick="setModalScope('multiple')" class="scope-btn p-3 rounded-2xl border text-xs font-bold text-center transition flex flex-col items-center gap-1.5 border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600">
+          <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i>
+          <span>Multi-Chapters</span>
+        </button>
+      </div>
+
+      <!-- Scope Content 1: Single Chapter Selector -->
+      <div id="singleChapterContainer" class="hidden space-y-2 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+        <label class="text-xs font-semibold text-slate-300 block">Select Target Chapter:</label>
+        <select id="singleChapterSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+          <option value="Mechanics">Mechanics & Rigid Body Dynamics</option>
+          <option value="Electrodynamics">Electrodynamics, Magnetism & AC</option>
+          <option value="Optics">Optics & Wave Physics</option>
+          <option value="Thermodynamics">Thermodynamics & Kinetic Theory</option>
+          <option value="Modern Physics">Modern Physics & Quantum Phenomena</option>
+          <option value="Fluids & Properties">Fluid Mechanics & Surface Tension</option>
+        </select>
+      </div>
+
+      <!-- Scope Content 2: Multi-Chapter Selector (Checkboxes) -->
+      <div id="multiChapterContainer" class="hidden space-y-2.5 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+        <label class="text-xs font-semibold text-slate-300 block">Check 2 or more chapters to combine:</label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Mechanics" checked class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Mechanics</span>
+          </label>
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Electrodynamics" checked class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Electrodynamics</span>
+          </label>
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Optics" class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Optics & Waves</span>
+          </label>
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Thermodynamics" class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Thermodynamics</span>
+          </label>
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Modern Physics" class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Modern Physics</span>
+          </label>
+          <label class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-indigo-500/50">
+            <input type="checkbox" name="multiChapterCheck" value="Fluids & Properties" class="rounded text-indigo-600 focus:ring-0">
+            <span class="text-slate-200">Fluids & Properties</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Duration Selection -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-semibold text-slate-300 block">Exam Duration:</label>
+        <select id="testDurationSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+          <option value="30">30 Minutes (Sprint Drill)</option>
+          <option value="60" selected>60 Minutes (Standard Mini-Mock)</option>
+          <option value="120">120 Minutes (Full Official IAPT Window)</option>
+        </select>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+        <button onclick="closeConfigModal()" class="px-4 py-2 text-xs text-slate-400 hover:text-white rounded-xl hover:bg-slate-800">
+          Cancel
+        </button>
+        <button onclick="applyTestConfiguration()" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition">
+          Apply Configuration
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHAREABLE LINK MODAL -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <i data-lucide="share-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Share Test Link</h3>
+            <p class="text-xs text-slate-400">Send direct test paper links to your students via WhatsApp or Web</p>
+          </div>
+        </div>
+        <button onclick="closeShareModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Current Assigned Test Summary -->
+      <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-400">Test Class:</span>
+          <span class="font-bold text-amber-300">The Physics Room by Mayur Sir</span>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-400">Selected Syllabus:</span>
+          <span id="shareTestLabel" class="font-semibold text-white">Full Syllabus Mock</span>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-400">Duration:</span>
+          <span id="shareTestDuration" class="font-mono text-emerald-400">60 mins</span>
+        </div>
+      </div>
+
+      <!-- Copy Link Input -->
+      <div class="space-y-2">
+        <label class="text-xs font-semibold text-slate-300 block">Unique Test URL:</label>
+        <div class="flex items-center gap-2">
+          <input type="text" id="shareableLinkInput" readonly class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-indigo-300 font-mono select-all focus:outline-none">
+          <button onclick="copyShareableLink()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>Copy</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Share Platforms -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <span class="text-xs text-slate-400 block font-medium">Quick Direct Share:</span>
+        <div class="grid grid-cols-2 gap-2.5">
+          <a id="whatsappDirectLink" href="#" target="_blank" rel="noopener noreferrer" onclick="handleWhatsAppClick(event)" class="p-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-semibold flex items-center justify-center gap-2 transition active:scale-95 text-center">
+            <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i> WhatsApp
+          </a>
+          <a id="telegramDirectLink" href="#" target="_blank" rel="noopener noreferrer" onclick="handleTelegramClick(event)" class="p-3 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 border border-sky-500/40 text-sky-300 text-xs font-semibold flex items-center justify-center gap-2 transition active:scale-95 text-center">
+            <i data-lucide="send" class="w-4 h-4 text-sky-400 shrink-0"></i> Telegram
+          </a>
+        </div>
+        <p class="text-[11px] text-slate-400 text-center pt-1">
+          Tapping will automatically copy the invite and launch the app or web tab.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 bg-slate-800 border border-slate-600 text-white text-xs px-4 py-3 rounded-xl shadow-2xl">
+    <i id="toastIcon" data-lucide="info" class="w-4 h-4 text-indigo-400"></i>
+    <span id="toastMessage">Message</span>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    /* =========================================================
+       DATA: Curated High-Yield NSEP Question Bank
+       ========================================================= */
+    const masterQuestionBank = [
+      {
+        id: 1,
+        type: 'A1', // Single correct: +3, -1
+        domain: 'Mechanics',
+        topic: 'Rotational Dynamics',
+        statement: 'A uniform sphere of mass $M$ and radius $R$ is placed on a rough horizontal surface with coefficient of friction $\\mu$. It is imparted an initial pure translational velocity $v_0$ without any initial spin. What is the velocity of the sphere when pure rolling begins?',
+        options: [
+          '$\\frac{2}{7} v_0$',
+          '$\\frac{5}{7} v_0$',
+          '$\\frac{3}{5} v_0$',
+          '$\\frac{7}{10} v_0$'
+        ],
+        correct: [1], // Index 1 is (5/7) v_0
+        hint: 'Conserve angular momentum about an axis passing through the point of contact on the ground, because friction exerts no torque about that axis!',
+        solution: 'Since friction $f_k$ passes through the ground contact line, torque about any point on the ground line is zero: $\\tau_P = 0$. Hence, Angular Momentum $L_P$ is conserved.<br><br>Initial angular momentum about point of contact $P$:<br>$$L_i = M v_0 R$$<br>When pure rolling is established, $v = \\omega R$, so:<br>$$L_f = I_{cm} \\omega + M v R = \\left(\\frac{2}{5} M R^2\\right)\\left(\\frac{v}{R}\\right) + M v R = \\frac{7}{5} M v R$$<br>Equating $L_i = L_f$:<br>$$M v_0 R = \\frac{7}{5} M v R \\implies v = \\frac{5}{7} v_0$$'
+      },
+      {
+        id: 2,
+        type: 'A1',
+        domain: 'Electrodynamics',
+        topic: 'Electrodynamics & Induction',
+        statement: 'A circular loop of wire of radius $r$ and electrical resistance $R$ is oriented perpendicularly to a uniform magnetic field $B$. If the loop is rotated about its diameter by $180^\\circ$, what is the total net charge $Q$ that flows through any cross-section of the wire?',
+        options: [
+          '$\\frac{B \\pi r^2}{R}$',
+          '$\\frac{2 B \\pi r^2}{R}$',
+          '$\\frac{B \\pi r^2}{2 R}$',
+          'Zero, because induced EMF alternates'
+        ],
+        correct: [1],
+        hint: 'Remember that total charge passed depends solely on change in magnetic flux: $\\Delta Q = \\frac{|\\Delta \\Phi|}{R}$.',
+        solution: 'The instantaneous current is $i = \\frac{\\mathcal{E}}{R} = -\\frac{1}{R}\\frac{d\\Phi}{dt}$.<br>Integrating over the duration of the rotation:<br>$$Q = \\int i \\, dt = \\frac{|\\Delta \\Phi|}{R}$$<br>Initial flux: $\\Phi_i = B(\\pi r^2)$.<br>Final flux after $180^\\circ$ flip: $\\Phi_f = -B(\\pi r^2)$.<br>Therefore, $|\\Delta \\Phi| = 2 B \\pi r^2$, giving:<br>$$Q = \\frac{2 B \\pi r^2}{R}$$'
+      },
+      {
+        id: 3,
+        type: 'A2', // Multi-correct: +4, 0
+        domain: 'Thermodynamics',
+        topic: 'Thermodynamics & Real Gases',
+        statement: 'One mole of a real gas obeys the van der Waals equation $\\left(P + \\frac{a}{V^2}\\right)(V - b) = RT$. Which of the following statements is/are correct?',
+        options: [
+          'At very high pressures, the compressibility factor $Z > 1$ and increases linearly with pressure.',
+          'The constant $b$ is equal to 4 times the actual total volume occupied by the gas molecules.',
+          'At the Boyle temperature $T_B = \\frac{a}{R b}$, the gas behaves almost ideally at moderate pressures.',
+          'The critical temperature of the gas is given by $T_c = \\frac{8a}{27 R b}$.'
+        ],
+        correct: [0, 1, 2, 3], // All 4 are correct!
+        hint: 'Review the molecular derivations of van der Waals constants: excluded volume is $4 \\times \\text{volume of spheres}$, and inspect Virial expansion for $T_B$.',
+        solution: 'All four statements are foundational principles of real gas kinetics:<br>1. At very high pressure, $P \\gg \\frac{a}{V^2}$, so $P(V - b) \\approx RT \\implies Z = 1 + \\frac{Pb}{RT} > 1$.<br>2. The excluded volume per pair is $8 v_m$, yielding $b = 4 N_A v_{molecule}$.<br>3. At $T_B = \\frac{a}{Rb}$, the second Virial coefficient $\\left(b - \\frac{a}{RT}\\right)$ vanishes, so $Z \\approx 1$.<br>4. Setting $\\frac{\\partial P}{\\partial V} = 0$ and $\\frac{\\partial^2 P}{\\partial V^2} = 0$ yields $T_c = \\frac{8a}{27 R b}$.'
+      },
+      {
+        id: 4,
+        type: 'A1',
+        domain: 'Optics',
+        topic: 'Wave Optics & Interference',
+        statement: 'In a Young’s double slit experiment, a transparent thin glass mica sheet of thickness $t$ and refractive index $\\mu = 1.6$ is placed in front of one of the slits. The central bright fringe shifts to the position previously occupied by the 6th bright fringe. If the wavelength of light used is $\\lambda = 500\\text{ nm}$, what is the thickness $t$?',
+        options: [
+          '$2.5\\,\\mu\\text{m}$',
+          '$5.0\\,\\mu\\text{m}$',
+          '$7.5\\,\\mu\\text{m}$',
+          '$10.0\\,\\mu\\text{m}$'
+        ],
+        correct: [1],
+        hint: 'The extra path introduced by a film of thickness $t$ is $(\\mu - 1)t$. Equate this to $n \\lambda$.',
+        solution: 'Inserting a transparent film in front of one slit introduces an additional optical path difference of $\\Delta x = (\\mu - 1)t$.<br>For the central fringe to shift by 6 fringe widths:<br>$$(\\mu - 1)t = 6\\lambda$$<br>Substituting values:<br>$$(1.6 - 1)t = 6 \\times (500 \\times 10^{-9}\\text{ m})$$<br>$$0.6 t = 3000 \\times 10^{-9} \\implies t = \\frac{3000}{0.6} \\times 10^{-9}\\text{ m} = 5.0\\,\\mu\\text{m}$$'
+      },
+      {
+        id: 5,
+        type: 'A2',
+        domain: 'Modern Physics',
+        topic: 'Modern Physics & Quantum',
+        statement: 'In a photoelectric effect experiment using ultraviolet radiation of frequency $\\nu$ on a cesium surface (work function $\\Phi_0$), which of the following changes will increase the maximum kinetic energy of the emitted photoelectrons?',
+        options: [
+          'Increasing the intensity of the incident ultraviolet light beam.',
+          'Decreasing the wavelength of the incident radiation.',
+          'Increasing the frequency of the incident radiation.',
+          'Replacing the cathode with a metal having a smaller work function.'
+        ],
+        correct: [1, 2, 3],
+        hint: 'Einstein\'s equation: $K_{max} = h\\nu - \\Phi_0 = \\frac{hc}{\\lambda} - \\Phi_0$. Intensity only affects the saturation current, not individual photon energy.',
+        solution: 'From Einstein\'s photoelectric equation:<br>$$K_{max} = h\\nu - \\Phi_0 = \\frac{hc}{\\lambda} - \\Phi_0$$<br>- Increasing intensity merely increases photon flux (number of electrons per second), leaving individual photon energy unchanged.<br>- Decreasing wavelength $\\lambda$ increases photon energy $hc/\\lambda$, boosting $K_{max}$.<br>- Increasing frequency $\\nu$ increases photon energy, boosting $K_{max}$.<br>- Lower work function $\\Phi_0$ directly increases $K_{max}$. Therefore, options B, C, and D are correct.'
+      },
+      {
+        id: 6,
+        type: 'A1',
+        domain: 'Mechanics',
+        topic: 'Mechanics & Oscillations',
+        statement: 'A uniform rod of length $L$ and mass $M$ is pivoted at one end so it can swing freely in a vertical plane as a physical pendulum. What is the period of small angular oscillations $T$ of this rod?',
+        options: [
+          '$2\\pi \\sqrt{\\frac{L}{g}}$',
+          '$2\\pi \\sqrt{\\frac{2L}{3g}}$',
+          '$2\\pi \\sqrt{\\frac{L}{3g}}$',
+          '$\\pi \\sqrt{\\frac{2L}{g}}$'
+        ],
+        correct: [1],
+        hint: 'For a physical pendulum, $T = 2\\pi \\sqrt{\\frac{I}{M g d}}$, where $d = L/2$ is distance from pivot to center of mass.',
+        solution: 'Moment of inertia of the rod about one end pivot:<br>$$I = \\frac{1}{3} M L^2$$<br>Distance from the pivot to the center of mass is $d = \\frac{L}{2}$.<br>The time period of small oscillations of a physical pendulum is:<br>$$T = 2\\pi \\sqrt{\\frac{I}{M g d}} = 2\\pi \\sqrt{\\frac{\\frac{1}{3} M L^2}{M g (L/2)}} = 2\\pi \\sqrt{\\frac{2L}{3g}}$$'
+      },
+      {
+        id: 7,
+        type: 'A1',
+        domain: 'Electrodynamics',
+        topic: 'Electrostatics & Energy',
+        statement: 'Two concentric thin spherical conducting shells have radii $a$ and $b$ ($b > a$). The inner shell carries a charge $+Q$ and the outer shell is connected to earth (grounded). What is the capacitance of this system?',
+        options: [
+          '$\\frac{4\\pi \\epsilon_0 a b}{b - a}$',
+          '$\\frac{4\\pi \\epsilon_0 b^2}{b - a}$',
+          '$4\\pi \\epsilon_0 (b - a)$',
+          '$\\frac{4\\pi \\epsilon_0 a^2}{b - a}$'
+        ],
+        correct: [0],
+        hint: 'The potential of the outer grounded shell is zero. Calculate the potential difference $V_a - V_b = V_a - 0$.',
+        solution: 'Since the outer shell is grounded, its potential $V_b = 0$.<br>A charge $-Q$ is induced on the inner surface of the outer shell.<br>The potential of the inner shell is:<br>$$V_a = \\frac{Q}{4\\pi \\epsilon_0 a} - \\frac{Q}{4\\pi \\epsilon_0 b} = \\frac{Q}{4\\pi \\epsilon_0}\\left(\\frac{1}{a} - \\frac{1}{b}\\right) = \\frac{Q(b - a)}{4\\pi \\epsilon_0 a b}$$<br>Capacitance $C = \\frac{Q}{V_a - 0} = \\frac{4\\pi \\epsilon_0 a b}{b - a}$.'
+      },
+      {
+        id: 8,
+        type: 'A2',
+        domain: 'Fluids & Properties',
+        topic: 'Fluid Mechanics & Surface Tension',
+        statement: 'A spherical liquid drop of radius $R$ and surface tension $T$ is broken isothermally into 64 identical smaller droplets. Which of the following statements is/are correct?',
+        options: [
+          'The radius of each small droplet is $r = R/4$.',
+          'The surface energy of the system increases by a factor of 4.',
+          'The work done in breaking the drop is $12 \\pi R^2 T$.',
+          'If the process is adiabatic, the temperature of the liquid will decrease.'
+        ],
+        correct: [0, 2, 3],
+        hint: 'Volume is conserved: $\\frac{4}{3}\\pi R^3 = 64 \\times \\frac{4}{3}\\pi r^3$. Work done = $\\Delta U = T \\Delta A$. If work is done against surface tension with no heat in, it draws internal energy.',
+        solution: '1. By volume conservation: $\\frac{4}{3}\\pi R^3 = 64 \\left(\\frac{4}{3}\\pi r^3\\right) \\implies R^3 = 64 r^3 \\implies r = R/4$. (Option A is correct).<br>2. Initial area: $A_i = 4\\pi R^2$.<br>Final area: $A_f = 64 \\times 4\\pi r^2 = 64 \\times 4\\pi (R/4)^2 = 16\\pi R^2 = 4 A_i$.<br>Increase in area is $\\Delta A = 4 A_i - A_i = 3 A_i = 12\\pi R^2$.<br>Thus work done is $W = T \\Delta A = 12\\pi R^2 T$. (Option C is correct).<br>Surface energy increases by $4\\times$ original, but statement B states "increases BY a factor of 4" which is ambiguous or means $\\Delta U$; typically $U_f = 4 U_i$.<br>4. If performed adiabatically, $\\Delta Q = 0 \\implies \\Delta U_{thermal} + W = 0$, so internal kinetic energy decreases, cooling the droplet. (Option D is correct).'
+      },
+      {
+        id: 9,
+        type: 'A1',
+        domain: 'Mechanics',
+        topic: 'Center of Mass & Variable Mass',
+        statement: 'Sand falls vertically onto a conveyor belt moving horizontally with constant speed $v$ at a steady mass rate $\\frac{dm}{dt} = \\mu$. What is the power delivered by the motor driving the belt to maintain this uniform speed?',
+        options: [
+          '$\\frac{1}{2} \\mu v^2$',
+          '$\\mu v^2$',
+          '$2 \\mu v^2$',
+          'Zero, because sand falls perpendicular to belt'
+        ],
+        correct: [1],
+        hint: 'The force required is $F = v \\frac{dm}{dt} = \\mu v$. Mechanical power is $P = F v$. Notice that half the power is dissipated as friction heat!',
+        solution: 'By Newton\'s second law for variable mass, the thrust force required to accelerate incoming sand from horizontal velocity $0$ to $v$ is:<br>$$F = v_{rel} \\frac{dm}{dt} = \\mu v$$<br>Power delivered by the motor:<br>$$P = F \\cdot v = (\\mu v)(v) = \\mu v^2$$<br>Note: The rate of kinetic energy gain of the sand is $\\frac{dK}{dt} = \\frac{1}{2}\\mu v^2$. The remaining $\\frac{1}{2}\\mu v^2$ is dissipated as heat due to slipping friction between sand and belt.'
+      },
+      {
+        id: 10,
+        type: 'A2',
+        domain: 'Electrodynamics',
+        topic: 'LC Oscillations & AC Circuits',
+        statement: 'An ideal $LC$ resonant circuit has capacitance $C$ and inductance $L$. Initially, the capacitor is charged to voltage $V_0$ and the switch is closed at $t=0$. Which of the following statements is/are correct?',
+        options: [
+          'The angular frequency of oscillation is $\\omega_0 = \\frac{1}{\\sqrt{LC}}$.',
+          'The maximum current through the inductor is $I_{max} = V_0 \\sqrt{\\frac{C}{L}}$.',
+          'At time $t = \\frac{\\pi}{2\\omega_0}$, the electric energy in the capacitor and magnetic energy in the inductor are equal.',
+          'The total electromagnetic energy at any instant is $\\frac{1}{2} C V_0^2$.'
+        ],
+        correct: [0, 1, 3],
+        hint: 'Energy oscillates between $\\frac{1}{2} C V^2$ and $\\frac{1}{2} L I^2$. At $\\omega_0 t = \\pi/2$, charge is zero so all energy is purely magnetic.',
+        solution: '1. Standard differential equation: $\\frac{d^2 q}{dt^2} + \\frac{1}{LC} q = 0 \\implies \\omega_0 = \\frac{1}{\\sqrt{LC}}$. (Option A is correct).<br>2. Conservation of energy: $\\frac{1}{2} L I_{max}^2 = \\frac{1}{2} C V_0^2 \\implies I_{max} = V_0 \\sqrt{C/L}$. (Option B is correct).<br>3. At $t = \\frac{\\pi}{2\\omega_0}$, phase $\\omega_0 t = \\pi/2$. Charge $q(t) = Q_0 \\cos(\\pi/2) = 0$. Hence capacitor energy is 0 and inductor energy is maximal, not equal! (Option C is incorrect).<br>4. In an ideal circuit with zero resistance, total energy is strictly conserved at $E = \\frac{1}{2}CV_0^2$. (Option D is correct).'
+      },
+      {
+        id: 11,
+        type: 'A1',
+        domain: 'Optics',
+        topic: 'Wave Optics & Polarization',
+        statement: 'Unpolarized light of intensity $I_0$ passes sequentially through two ideal polarizers whose transmission axes are oriented at an angle of $60^\\circ$ relative to each other. What is the intensity of the light transmitted through the second polarizer?',
+        options: [
+          '$\\frac{I_0}{2}$',
+          '$\\frac{I_0}{4}$',
+          '$\\frac{I_0}{8}$',
+          '$\\frac{3 I_0}{8}$'
+        ],
+        correct: [2],
+        hint: 'First polarizer reduces unpolarized intensity to $I_1 = I_0/2$. Then apply Malus’s law: $I_2 = I_1 \\cos^2\\theta$.',
+        solution: 'After passing through the first polarizer, unpolarized light becomes plane polarized with intensity:<br>$$I_1 = \\frac{I_0}{2}$$<br>By Malus’s law, after passing through the second polarizer oriented at $\\theta = 60^\\circ$:<br>$$I_2 = I_1 \\cos^2(60^\\circ) = \\left(\\frac{I_0}{2}\\right) \\left(\\frac{1}{2}\\right)^2 = \\frac{I_0}{8}$$'
+      },
+      {
+        id: 12,
+        type: 'A2',
+        domain: 'Thermodynamics',
+        topic: 'Carnot Engines & Entropy',
+        statement: 'A reversible Carnot heat engine operates between reservoirs at absolute temperatures $T_H$ and $T_C$ ($T_H > T_C$). Which of the following statements is/are correct?',
+        options: [
+          'The thermal efficiency is $\\eta = 1 - \\frac{T_C}{T_H}$.',
+          'The total entropy change of the universe (engine + surroundings) over one complete cycle is zero.',
+          'If the engine is operated in reverse as a refrigerator, its coefficient of performance is $\\beta = \\frac{T_C}{T_H - T_C}$.',
+          'The efficiency depends on the nature of the working substance (ideal vs real gas).'
+        ],
+        correct: [0, 1, 2],
+        hint: 'Carnot efficiency is universal and depends exclusively on reservoir temperatures, independent of working substance!',
+        solution: 'Statements A, B, and C are direct thermodynamic laws:<br>- Efficiency of any reversible Carnot engine is purely $\\eta = 1 - T_C/T_H$.<br>- For any reversible cyclic process, $\\Delta S_{univ} = 0$.<br>- Refrigerator COP is $\\beta = \\frac{Q_C}{W} = \\frac{T_C}{T_H - T_C}$.<br>- Statement D is false because Carnot’s theorem proves efficiency is strictly independent of the working substance.'
+      }
+    ];
+
+    /* Active Mock test questions (filtered based on syllabus mode) */
+    let mockQuestions = [...masterQuestionBank];
+
+    /* =========================================================
+       DATA: NSEP High-Yield Formulas
+       ========================================================= */
+    const formulaVault = [
+      // MECHANICS
+      {
+        topic: 'Mechanics',
+        title: 'Variable Mass Equation (Rocket Propulsion)',
+        formula: '$$M \\frac{d\\vec{v}}{dt} = \\vec{F}_{ext} + \\vec{v}_{rel} \\frac{dM}{dt}$$',
+        notes: 'Crucial for leaking sand carts, falling chains, and rockets. $\\vec{v}_{rel}$ is the velocity of the ejected mass relative to the body.'
+      },
+      {
+        topic: 'Mechanics',
+        title: 'Rolling Without Slipping Acceleration',
+        formula: '$$a_{cm} = \\frac{F}{M + \\frac{I_{cm}}{R^2}} = \\frac{F}{M(1 + \\eta)}$$',
+        notes: 'Where $\\eta = k^2/R^2$ is the radius of gyration ratio ($2/5$ for solid sphere, $1/2$ for cylinder, $2/3$ for hollow sphere).'
+      },
+      {
+        topic: 'Mechanics',
+        title: 'Physical Pendulum & Center of Oscillation',
+        formula: '$$T = 2\\pi \\sqrt{\\frac{I_P}{M g d}} = 2\\pi \\sqrt{\\frac{k_g^2 + d^2}{g d}}$$',
+        notes: 'Minimum time period occurs when suspension distance $d = k_g$ (radius of gyration about CM), yielding $T_{min} = 2\\pi\\sqrt{2k_g/g}$.'
+      },
+      {
+        topic: 'Mechanics',
+        title: 'Coriolis & Centrifugal Pseudo-Accelerations',
+        formula: '$$\\vec{a}_{coriolis} = -2(\\vec{\\omega} \\times \\vec{v}_{rot}), \\quad \\vec{a}_{centrifugal} = -\\vec{\\omega} \\times (\\vec{\\omega} \\times \\vec{r})$$',
+        notes: 'Used in rotating reference frames (merry-go-rounds, earth-bound trajectories). Deflects moving particles to the right in northern hemisphere.'
+      },
+      {
+        topic: 'Mechanics',
+        title: 'Virial Theorem for Central Forces',
+        formula: '$$2\\langle K \\rangle = n \\langle U \\rangle \\quad \\text{for } U(r) \\propto r^n$$',
+        notes: 'For inverse square gravitational orbit ($n = -1$): $2\\langle K \\rangle = -\\langle U \\rangle \\implies E = \\frac{\\langle U \\rangle}{2} = -\\langle K \\rangle$.'
+      },
+      {
+        topic: 'Mechanics',
+        title: 'Reduced Mass for 2-Body Central Collisions',
+        formula: '$$\\mu = \\frac{m_1 m_2}{m_1 + m_2}, \\quad K_{rel} = \\frac{1}{2}\\mu v_{rel}^2$$',
+        notes: 'Converts two interacting bodies (e.g. spring connecting two masses, orbiting binary stars) into an equivalent single particle problem.'
+      },
+
+      // ELECTRODYNAMICS
+      {
+        topic: 'Electrodynamics',
+        title: 'Energy Density of Fields & Poynting Vector',
+        formula: '$$u = \\frac{1}{2}\\epsilon_0 E^2 + \\frac{B^2}{2\\mu_0}, \\quad \\vec{S} = \\frac{1}{\\mu_0} (\\vec{E} \\times \\vec{B})$$',
+        notes: 'Poynting vector gives directional energy flux (Watts/m$^2$) of EM waves and wire currents.'
+      },
+      {
+        topic: 'Electrodynamics',
+        title: 'Mutual Inductance of Coaxial Solenoids',
+        formula: '$$M = \\mu_0 n_1 n_2 \\pi r_1^2 L \\quad (r_1 < r_2)$$',
+        notes: 'Always governed by the core area of the inner solenoid because magnetic field is zero outside.'
+      },
+      {
+        topic: 'Electrodynamics',
+        title: 'Maxwell-Ampère Displacement Current',
+        formula: '$$I_d = \\epsilon_0 \\frac{d\\Phi_E}{dt} = \\epsilon_0 \\frac{d}{dt}\\int \\vec{E} \\cdot d\\vec{A}$$',
+        notes: 'Continuity inside capacitor plates: Conduction current $I_c$ in wire equals displacement current $I_d$ inside the gap.'
+      },
+      {
+        topic: 'Electrodynamics',
+        title: 'Magnetic Dipole Field & Interaction Energy',
+        formula: '$$U = -\\vec{m} \\cdot \\vec{B}, \\quad \\vec{\\tau} = \\vec{m} \\times \\vec{B}, \\quad \\vec{F} = \\nabla (\\vec{m} \\cdot \\vec{B})$$',
+        notes: 'A magnetic dipole experiences a net translational force only in an inhomogeneous (non-uniform) magnetic field.'
+      },
+      {
+        topic: 'Electrodynamics',
+        title: 'Skin Depth in Conducting Media',
+        formula: '$$\\delta = \\sqrt{\\frac{2}{\\omega \\mu \\sigma}}$$',
+        notes: 'High-frequency AC currents concentrate in a thin outer surface layer of conductors due to eddy counter-EMFs.'
+      },
+      {
+        topic: 'Electrodynamics',
+        title: 'Energy Stored in Inductor & Magnetic Pressure',
+        formula: '$$U_B = \\frac{1}{2} L I^2, \\quad P_B = \\frac{B^2}{2\\mu_0}$$',
+        notes: 'Magnetic field exerts an outward radial burst pressure $P = B^2 / (2\\mu_0)$ on the inner windings of carrying solenoids.'
+      },
+
+      // OPTICS
+      {
+        topic: 'Optics',
+        title: 'Fringe Visibility & Coherence',
+        formula: '$$\\mathcal{V} = \\frac{I_{max} - I_{min}}{I_{max} + I_{min}} = \\frac{2\\sqrt{I_1 I_2}}{I_1 + I_2} |\\gamma_{12}|$$',
+        notes: 'Equals 1 for identical coherent sources and 0 for fully incoherent light.'
+      },
+      {
+        topic: 'Optics',
+        title: 'Dispersive Power & Achromatic Doublet',
+        formula: '$$\\omega = \\frac{\\mu_v - \\mu_r}{\\mu_y - 1}, \\quad \\frac{\\omega_1}{f_1} + \\frac{\\omega_2}{f_2} = 0$$',
+        notes: 'Condition for two lenses in contact to eliminate chromatic aberration across two primary colors.'
+      },
+      {
+        topic: 'Optics',
+        title: 'Brewster Angle & Polarization by Reflection',
+        formula: '$$\\tan\\theta_B = \\frac{\\mu_2}{\\mu_1}, \\quad \\theta_B + r = 90^\\circ$$',
+        notes: 'Reflected beam is completely linear plane-polarized with electric vector parallel to the reflecting interface.'
+      },
+      {
+        topic: 'Optics',
+        title: 'Rayleigh Criterion for Angular Resolution',
+        formula: '$$\\theta_{min} = 1.22 \\frac{\\lambda}{D}$$',
+        notes: 'Minimum angular separation for resolving two astronomical point sources through circular aperture diameter $D$.'
+      },
+      {
+        topic: 'Optics',
+        title: 'Fermat’s Principle of Extremal Optical Path',
+        formula: '$$\\delta \\int_{A}^{B} n(s) \\, ds = 0$$',
+        notes: 'Light travels between points along the path requiring stationary travel time. Generalizes Snell’s law in graded-index media ($n(y)$).'
+      },
+
+      // THERMODYNAMICS
+      {
+        topic: 'Thermodynamics',
+        title: 'Polytropic Specific Heat Capacity',
+        formula: '$$C = C_v + \\frac{R}{1 - n} = \\frac{R}{\\gamma - 1} + \\frac{R}{1 - n}$$',
+        notes: 'For process $P V^n = \\text{const}$. If $n = \\gamma$, $C = 0$ (adiabatic). If $n=1$, $C \\to \\infty$ (isothermal).'
+      },
+      {
+        topic: 'Thermodynamics',
+        title: 'Maxwell-Boltzmann Distribution Speeds',
+        formula: '$$v_{mp} : \\langle v \\rangle : v_{rms} = \\sqrt{2} : \\sqrt{\\frac{8}{\\pi}} : \\sqrt{3} \\approx 1 : 1.128 : 1.224$$',
+        notes: '$$v_{mp} = \\sqrt{\\frac{2RT}{M}}, \\quad v_{rms} = \\sqrt{\\frac{3RT}{M}}$$'
+      },
+      {
+        topic: 'Thermodynamics',
+        title: 'Van der Waals Critical Constants',
+        formula: '$$V_c = 3b, \\quad P_c = \\frac{a}{27b^2}, \\quad T_c = \\frac{8a}{27Rb}, \\quad Z_c = \\frac{3}{8} = 0.375$$',
+        notes: 'Critical compressibility ratio $Z_c$ is a universal dimensionless constant for all van der Waals gases.'
+      },
+      {
+        topic: 'Thermodynamics',
+        title: 'Clausius-Clapeyron Equation (Phase Transitions)',
+        formula: '$$\\frac{dP}{dT} = \\frac{L}{T \\Delta V}$$',
+        notes: 'Explains why the melting point of ice decreases with pressure (since ice expands on freezing: $\\Delta V < 0$).'
+      },
+      {
+        topic: 'Thermodynamics',
+        title: 'Stefan-Boltzmann & Wien Displacement Law',
+        formula: '$$P = e \\sigma A T^4, \\quad \\lambda_{max} T = b \\approx 2.898 \\times 10^{-3}\\text{ m}\\cdot\\text{K}$$',
+        notes: 'For small temperature differences $\\Delta T = T - T_0$, reduces to Newton’s law of cooling: $\\frac{dQ}{dt} \\propto \\Delta T$.'
+      },
+
+      // MODERN PHYSICS
+      {
+        topic: 'Modern Physics',
+        title: 'Relativistic Doppler Shift',
+        formula: '$$\\nu_{obs} = \\nu_0 \\sqrt{\\frac{1 - \\beta}{1 + \\beta}} \\quad \\left(\\beta = \\frac{v}{c}\\right)$$',
+        notes: 'For source receding along the line of sight. Accounts for time dilation.'
+      },
+      {
+        topic: 'Modern Physics',
+        title: 'Bragg Diffraction Condition',
+        formula: '$$2 d \\sin\\theta = n \\lambda$$',
+        notes: 'Be careful: $\\theta$ is the glancing angle with the crystal plane, NOT the surface normal.'
+      },
+      {
+        topic: 'Modern Physics',
+        title: 'Compton Scattering Wavelength Shift',
+        formula: '$$\\Delta \\lambda = \\lambda\' - \\lambda = \\frac{h}{m_e c}(1 - \\cos\\theta) = \\lambda_c (1 - \\cos\\theta)$$',
+        notes: 'Compton wavelength $\\lambda_c = \\frac{h}{m_e c} \\approx 0.0243\\text{ Å}$. Maximum shift occurs at backscatter ($\\theta = 180^\\circ$).'
+      },
+      {
+        topic: 'Modern Physics',
+        title: 'De Broglie Phase vs Group Velocity',
+        formula: '$$v_p = \\frac{\\omega}{k} = \\frac{E}{p} = \\frac{c^2}{v}, \\quad v_g = \\frac{d\\omega}{dk} = \\frac{dE}{dp} = v$$',
+        notes: 'Phase velocity of matter waves exceeds speed of light ($v_p > c$), but physical signal/particle moves at group velocity $v_g = v < c$.'
+      }
+    ];
+
+    /* =========================================================
+       APP STATE
+       ========================================================= */
+    let currentQIndex = 0;
+    let userSelections = {}; // { qIndex: [selectedIndices] }
+    let verifiedQuestions = {}; // { qIndex: { correct: bool, scoreDelta: number } }
+    let totalExamDurationMinutes = 60;
+    let remainingSeconds = 60 * 60; // 60 minutes default
+    let timerInterval = null;
+    let isExamActive = false;
+    let currentForgedProblem = null; // Store forged problem cleanly in memory
+
+    // Current Test Configuration
+    let currentTestConfig = {
+      mode: 'full', // 'full' | 'chapterwise' | 'multiple'
+      selectedDomains: ['Mechanics', 'Electrodynamics', 'Optics', 'Thermodynamics', 'Modern Physics', 'Fluids & Properties'],
+      label: 'Full Syllabus'
+    };
+
+    /* Modal Temporary State */
+    let tempModalScope = 'full';
+
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      parseURLParameters(); // Auto-load configuration if opened via shared link
+      updatePreExamScreen();
+      renderFormulaCards(formulaVault);
+      
+      // Update dynamic formula badges
+      const totalBadge = document.getElementById('formulaTotalCountBadge');
+      const drawerBadge = document.getElementById('drawerFormulaBadge');
+      if (totalBadge) totalBadge.innerText = `${formulaVault.length} Formulas`;
+      if (drawerBadge) drawerBadge.innerText = `${formulaVault.length} Formulas`;
+    });
+
+    /* =========================================================
+       THREE-LINE RIGHT DRAWER NAVIGATION
+       ========================================================= */
+    function toggleRightDrawer() {
+      const drawer = document.getElementById('rightDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+      
+      const isOpen = !drawer.classList.contains('translate-x-full');
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function drawerNavigate(tabId) {
+      switchTab(tabId);
+      toggleRightDrawer();
+    }
+
+    /* =========================================================
+       EXAM LAUNCH & PRE-EXAM SCREEN
+       ========================================================= */
+    function updatePreExamScreen() {
+      const filtered = masterQuestionBank.filter(q => currentTestConfig.selectedDomains.includes(q.domain));
+      mockQuestions = filtered.length > 0 ? filtered : [...masterQuestionBank];
+
+      const syllabusLabelEl = document.getElementById('preTestSyllabusLabel');
+      const questionCountEl = document.getElementById('preTestQuestionCount');
+      const durationLabelEl = document.getElementById('preTestDurationLabel');
+
+      if (syllabusLabelEl) syllabusLabelEl.innerText = currentTestConfig.label;
+      if (questionCountEl) questionCountEl.innerText = `${mockQuestions.length} Questions`;
+      if (durationLabelEl) durationLabelEl.innerText = `${totalExamDurationMinutes} Minutes`;
+    }
+
+    function startExaminationNow() {
+      isExamActive = true;
+      document.getElementById('preExamScreen').classList.add('hidden');
+      document.getElementById('activeExamContainer').classList.remove('hidden');
+
+      initTest();
+      startTimer();
+      showToast('Exam started! All the best, future Olympian.', 'play');
+    }
+
+    /* =========================================================
+       SHAREABLE LINK & URL PARAMETERS
+       ========================================================= */
+    function openShareModal() {
+      const modal = document.getElementById('shareModal');
+      document.getElementById('shareTestLabel').innerText = currentTestConfig.label;
+      document.getElementById('shareTestDuration').innerText = `${totalExamDurationMinutes} mins`;
+
+      const generatedURL = buildShareableURL();
+      document.getElementById('shareableLinkInput').value = generatedURL;
+
+      updateDirectShareHrefs(generatedURL);
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeShareModal() {
+      document.getElementById('shareModal').classList.add('hidden');
+    }
+
+    function buildShareableURL() {
+      const baseURL = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      params.set('mode', currentTestConfig.mode);
+      params.set('duration', totalExamDurationMinutes.toString());
+      params.set('domains', currentTestConfig.selectedDomains.join(','));
+      return `${baseURL}?${params.toString()}`;
+    }
+
+    function getFormattedShareMessage(url) {
+      return `THE PHYSICS ROOM BY MAYUR SIR\n🎯 NSEP Olympiad Physics Test Assigned\n📚 Topic: ${currentTestConfig.label}\n⏱️ Duration: ${totalExamDurationMinutes} Minutes\n🔗 Start Test Here:\n${url}`;
+    }
+
+    function updateDirectShareHrefs(url) {
+      const message = getFormattedShareMessage(url);
+      const encodedMsg = encodeURIComponent(message);
+      
+      const waLink = document.getElementById('whatsappDirectLink');
+      const tgLink = document.getElementById('telegramDirectLink');
+      
+      if (waLink) {
+        // Universal WhatsApp API endpoint: works smoothly on mobile app and desktop WhatsApp Web
+        waLink.href = `https://api.whatsapp.com/send?text=${encodedMsg}`;
+      }
+      if (tgLink) {
+        tgLink.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('THE PHYSICS ROOM BY MAYUR SIR - NSEP Physics Test (' + currentTestConfig.label + ')')}`;
+      }
+    }
+
+    function copyToClipboardFallback(text) {
+      try {
+        const tempArea = document.createElement("textarea");
+        tempArea.value = text;
+        tempArea.style.position = 'fixed';
+        tempArea.style.left = '-9999px';
+        document.body.appendChild(tempArea);
+        tempArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempArea);
+        return true;
+      } catch (err) {
+        console.warn('Clipboard fallback error:', err);
+        return false;
+      }
+    }
+
+    function copyShareableLink() {
+      const input = document.getElementById('shareableLinkInput');
+      input.select();
+      input.setSelectionRange(0, 99999);
+      copyToClipboardFallback(input.value);
+      showToast('Shareable test link copied to clipboard!', 'clipboard');
+    }
+
+    function handleWhatsAppClick(event) {
+      const url = buildShareableURL();
+      const message = getFormattedShareMessage(url);
+      
+      // Copy to clipboard first so student or teacher can always paste anywhere
+      copyToClipboardFallback(message);
+      showToast('Message copied! Launching WhatsApp...', 'message-circle');
+
+      const waURL = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+      // Attempt navigation to ensure it triggers inside sandboxed webviews or iframes
+      try {
+        const opened = window.open(waURL, '_blank', 'noopener,noreferrer');
+        if (!opened || opened.closed || typeof opened.closed === 'undefined') {
+          // If popup is blocked by the environment, navigate top frame or location
+          window.location.href = waURL;
+        }
+      } catch (e) {
+        window.location.href = waURL;
+      }
+    }
+
+    function handleTelegramClick(event) {
+      const url = buildShareableURL();
+      const message = `THE PHYSICS ROOM BY MAYUR SIR - NSEP Physics Test (${currentTestConfig.label})\n${url}`;
+      
+      copyToClipboardFallback(message);
+      showToast('Link copied! Launching Telegram...', 'send');
+
+      const tgURL = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`;
+
+      try {
+        const opened = window.open(tgURL, '_blank', 'noopener,noreferrer');
+        if (!opened || opened.closed || typeof opened.closed === 'undefined') {
+          window.location.href = tgURL;
+        }
+      } catch (e) {
+        window.location.href = tgURL;
+      }
+    }
+
+    function shareViaWhatsApp() {
+      handleWhatsAppClick();
+    }
+
+    function shareViaTelegram() {
+      handleTelegramClick();
+    }
+
+    function parseURLParameters() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const mode = urlParams.get('mode');
+      const duration = urlParams.get('duration');
+      const domainsStr = urlParams.get('domains');
+
+      if (mode && domainsStr) {
+        const domains = domainsStr.split(',');
+        totalExamDurationMinutes = duration ? parseInt(duration, 10) : 60;
+        remainingSeconds = totalExamDurationMinutes * 60;
+
+        let label = 'Full Syllabus Mock';
+        if (mode === 'chapterwise') {
+          label = `Chapter: ${domains[0]}`;
+        } else if (mode === 'multiple') {
+          label = `${domains.length} Chapters Combined`;
+        }
+
+        currentTestConfig = {
+          mode: mode,
+          selectedDomains: domains,
+          label: label
+        };
+
+        const filtered = masterQuestionBank.filter(q => domains.includes(q.domain));
+        if (filtered.length > 0) {
+          mockQuestions = filtered;
+          document.getElementById('activeTestModeBadge').innerText = label;
+          showToast(`Loaded test from Mayur Sir's link: ${label}`, 'check-circle');
+        }
+      }
+    }
+
+    /* =========================================================
+       TEST CONFIGURATION & CHAPTERWISE SELECTION
+       ========================================================= */
+    function openConfigModal() {
+      document.getElementById('configModal').classList.remove('hidden');
+      setModalScope(currentTestConfig.mode);
+      lucide.createIcons();
+    }
+
+    function closeConfigModal() {
+      document.getElementById('configModal').classList.add('hidden');
+    }
+
+    function setModalScope(mode) {
+      tempModalScope = mode;
+      
+      // Update Button Styles
+      document.querySelectorAll('.scope-btn').forEach(b => {
+        b.className = "scope-btn p-3 rounded-2xl border text-xs font-bold text-center transition flex flex-col items-center gap-1.5 border-slate-700 bg-slate-800 text-slate-300 hover:border-slate-600";
+      });
+
+      const activeBtn = document.getElementById(`scopeBtn-${mode}`);
+      if (activeBtn) {
+        activeBtn.className = "scope-btn p-3 rounded-2xl border text-xs font-bold text-center transition flex flex-col items-center gap-1.5 border-indigo-500 bg-indigo-950/50 text-white";
+      }
+
+      // Toggle containers
+      const singleContainer = document.getElementById('singleChapterContainer');
+      const multiContainer = document.getElementById('multiChapterContainer');
+
+      if (mode === 'chapterwise') {
+        singleContainer.classList.remove('hidden');
+        multiContainer.classList.add('hidden');
+      } else if (mode === 'multiple') {
+        singleContainer.classList.add('hidden');
+        multiContainer.classList.remove('hidden');
+      } else {
+        singleContainer.classList.add('hidden');
+        multiContainer.classList.add('hidden');
+      }
+    }
+
+    function applyTestConfiguration() {
+      const duration = parseInt(document.getElementById('testDurationSelect').value, 10);
+      totalExamDurationMinutes = duration;
+      remainingSeconds = duration * 60;
+
+      let chosenDomains = [];
+      let label = 'Full Syllabus';
+
+      if (tempModalScope === 'full') {
+        chosenDomains = ['Mechanics', 'Electrodynamics', 'Optics', 'Thermodynamics', 'Modern Physics', 'Fluids & Properties'];
+        label = 'Full Syllabus Mock';
+      } else if (tempModalScope === 'chapterwise') {
+        const val = document.getElementById('singleChapterSelect').value;
+        chosenDomains = [val];
+        label = `Chapter: ${val}`;
+      } else {
+        const checked = Array.from(document.querySelectorAll('input[name="multiChapterCheck"]:checked')).map(cb => cb.value);
+        if (checked.length === 0) {
+          showToast('Please select at least one chapter!', 'alert-circle');
+          return;
+        }
+        chosenDomains = checked;
+        label = `${checked.length} Chapters Combined`;
+      }
+
+      currentTestConfig = {
+        mode: tempModalScope,
+        selectedDomains: chosenDomains,
+        label: label
+      };
+
+      // Filter questions from master bank
+      const filtered = masterQuestionBank.filter(q => chosenDomains.includes(q.domain));
+
+      if (filtered.length === 0) {
+        showToast('No questions found for selected chapter. Try multi-chapter!', 'alert-triangle');
+        return;
+      }
+
+      mockQuestions = filtered;
+      userSelections = {};
+      verifiedQuestions = {};
+      currentQIndex = 0;
+
+      document.getElementById('activeTestModeBadge').innerText = label;
+
+      updatePreExamScreen();
+      closeConfigModal();
+
+      if (isExamActive) {
+        initTest();
+        startTimer();
+      }
+
+      showToast(`Configured: ${label} (${mockQuestions.length} Questions)`, 'check-circle');
+    }
+
+    function renderMathInPage() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    /* =========================================================
+       TAB SWITCHING
+       ========================================================= */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-300');
+      });
+
+      const selectedPane = document.getElementById(`tab-${tabId}`);
+      if (selectedPane) selectedPane.classList.remove('hidden');
+
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) {
+        activeNav.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+        activeNav.classList.remove('text-slate-300');
+      }
+
+      // Re-render math in newly visible tab
+      setTimeout(renderMathInPage, 50);
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    /* =========================================================
+       MOCK TEST CONTROLLER
+       ========================================================= */
+    function initTest() {
+      renderPalette();
+      loadQuestion(0);
+      updateScoreboard();
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          showToast('Time is up! Exam auto-submitted.', 'alert-triangle');
+          return;
+        }
+        remainingSeconds--;
+        const mins = Math.floor(remainingSeconds / 60);
+        const secs = remainingSeconds % 60;
+        document.getElementById('timerText').innerText = 
+          `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function renderPalette() {
+      const grid = document.getElementById('paletteGrid');
+      grid.innerHTML = '';
+      mockQuestions.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `palette-btn-${idx}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => loadQuestion(idx);
+        btn.className = getPaletteBtnClass(idx);
+        grid.appendChild(btn);
+      });
+    }
+
+    function getPaletteBtnClass(idx) {
+      const base = "h-9 rounded-xl font-mono text-xs font-bold transition flex items-center justify-center ";
+      if (idx === currentQIndex) {
+        return base + "bg-indigo-600 text-white ring-2 ring-indigo-400 ring-offset-2 ring-offset-slate-900";
+      }
+      if (verifiedQuestions[idx]) {
+        return verifiedQuestions[idx].isCorrect 
+          ? base + "bg-emerald-600 text-white" 
+          : base + "bg-rose-600 text-white";
+      }
+      if (userSelections[idx] && userSelections[idx].length > 0) {
+        return base + "bg-indigo-900 text-indigo-200 border border-indigo-500/50";
+      }
+      return base + "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white border border-slate-700/60";
+    }
+
+    function loadQuestion(index) {
+      currentQIndex = index;
+      const q = mockQuestions[index];
+
+      // Update Header badges
+      const qTypeEl = document.getElementById('qBadgeType');
+      const markingSchemeEl = document.getElementById('markingSchemeLabel');
+      if (q.type === 'A1') {
+        qTypeEl.innerText = "Part A1: Single Correct";
+        qTypeEl.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        markingSchemeEl.innerText = "Marks: +3 | -1";
+      } else {
+        qTypeEl.innerText = "Part A2: Multiple Correct";
+        qTypeEl.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30";
+        markingSchemeEl.innerText = "Marks: +4 | 0 (No negative)";
+      }
+
+      document.getElementById('qBadgeTopic').innerText = q.topic;
+      document.getElementById('currentQuestionLabel').innerText = `Question ${index + 1} of ${mockQuestions.length}`;
+      document.getElementById('questionStatement').innerHTML = q.statement;
+      
+      // Hint & solution reset
+      document.getElementById('hintBox').classList.add('hidden');
+      document.getElementById('hintContent').innerText = q.hint;
+      
+      const solPanel = document.getElementById('solutionPanel');
+      if (verifiedQuestions[index]) {
+        solPanel.classList.remove('hidden');
+        document.getElementById('solutionText').innerHTML = q.solution;
+      } else {
+        solPanel.classList.add('hidden');
+      }
+
+      // Render Options
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const currentSelected = userSelections[index] || [];
+
+      q.options.forEach((optText, optIdx) => {
+        const isSelected = currentSelected.includes(optIdx);
+        const optRow = document.createElement('div');
+        optRow.onclick = () => selectOption(optIdx);
+
+        let borderClass = isSelected 
+          ? "border-indigo-500 bg-indigo-950/40 text-white" 
+          : "border-slate-700/80 bg-slate-900/60 hover:bg-slate-900 text-slate-300";
+
+        // If verified, highlight answers
+        if (verifiedQuestions[index]) {
+          const isActuallyCorrect = q.correct.includes(optIdx);
+          if (isActuallyCorrect) {
+            borderClass = "border-emerald-500 bg-emerald-950/40 text-emerald-200 font-semibold";
+          } else if (isSelected && !isActuallyCorrect) {
+            borderClass = "border-rose-500 bg-rose-950/40 text-rose-200";
+          }
+        }
+
+        optRow.className = `p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${borderClass}`;
+        optRow.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'} font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-slate-700">
+              ${letters[optIdx]}
+            </span>
+            <span class="text-sm font-medium">${optText}</span>
+          </div>
+          <div>
+            ${q.type === 'A1' 
+              ? `<div class="w-4 h-4 rounded-full border ${isSelected ? 'border-indigo-500 bg-indigo-500' : 'border-slate-600'}"></div>` 
+              : `<div class="w-4 h-4 rounded border ${isSelected ? 'border-indigo-500 bg-indigo-500' : 'border-slate-600'} flex items-center justify-center text-[10px] text-white">${isSelected ? '✓' : ''}</div>`
+            }
+          </div>
+        `;
+        container.appendChild(optRow);
+      });
+
+      // Update control states
+      document.getElementById('prevBtn').disabled = (index === 0);
+      document.getElementById('nextBtn').disabled = (index === mockQuestions.length - 1);
+
+      renderPalette();
+      renderMathInPage();
+    }
+
+    function selectOption(optionIndex) {
+      if (verifiedQuestions[currentQIndex]) {
+        showToast('Question already submitted. Reset to retry.', 'info');
+        return;
+      }
+
+      const q = mockQuestions[currentQIndex];
+      let current = userSelections[currentQIndex] ? [...userSelections[currentQIndex]] : [];
+
+      if (q.type === 'A1') {
+        // Single choice: toggle or replace
+        current = [optionIndex];
+      } else {
+        // Multi choice: add/remove
+        if (current.includes(optionIndex)) {
+          current = current.filter(i => i !== optionIndex);
+        } else {
+          current.push(optionIndex);
+          current.sort();
+        }
+      }
+
+      userSelections[currentQIndex] = current;
+      loadQuestion(currentQIndex);
+      updateScoreboard();
+    }
+
+    function clearCurrentSelection() {
+      if (verifiedQuestions[currentQIndex]) return;
+      delete userSelections[currentQIndex];
+      loadQuestion(currentQIndex);
+      updateScoreboard();
+    }
+
+    function verifyCurrentQuestion() {
+      const q = mockQuestions[currentQIndex];
+      const selected = userSelections[currentQIndex];
+
+      if (!selected || selected.length === 0) {
+        showToast('Please select an option before checking!', 'alert-circle');
+        return;
+      }
+
+      // Check correctness
+      let isCorrect = false;
+      let delta = 0;
+
+      if (q.type === 'A1') {
+        isCorrect = (selected.length === 1 && selected[0] === q.correct[0]);
+        delta = isCorrect ? +3 : -1;
+      } else {
+        // Part A2: Multi-correct (+4 for all correct, 0 otherwise)
+        const sortedSelected = [...selected].sort().join(',');
+        const sortedCorrect = [...q.correct].sort().join(',');
+        isCorrect = (sortedSelected === sortedCorrect);
+        delta = isCorrect ? +4 : 0;
+      }
+
+      verifiedQuestions[currentQIndex] = { isCorrect, delta };
+      loadQuestion(currentQIndex);
+      updateScoreboard();
+
+      if (isCorrect) {
+        showToast(`Splendid! +${delta} marks earned.`, 'check-circle');
+      } else {
+        const penaltyMsg = delta < 0 ? `${delta} mark penalty applied.` : 'No negative mark in Part A2.';
+        showToast(`Incorrect choice. ${penaltyMsg}`, 'x-circle');
+      }
+    }
+
+    function updateScoreboard() {
+      let total = 0;
+      let correctCount = 0;
+      let wrongCount = 0;
+      let attemptedCount = 0;
+
+      mockQuestions.forEach((q, idx) => {
+        if (userSelections[idx] && userSelections[idx].length > 0) {
+          attemptedCount++;
+        }
+        if (verifiedQuestions[idx]) {
+          total += verifiedQuestions[idx].delta;
+          if (verifiedQuestions[idx].isCorrect) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        }
+      });
+
+      document.getElementById('testScoreBadge').innerText = `${total} pts`;
+      document.getElementById('statCorrect').innerText = correctCount;
+      document.getElementById('statWrong').innerText = wrongCount;
+      document.getElementById('statAttempted').innerText = `${attemptedCount}/${mockQuestions.length}`;
+    }
+
+    function nextQuestion() {
+      if (currentQIndex < mockQuestions.length - 1) {
+        loadQuestion(currentQIndex + 1);
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQIndex > 0) {
+        loadQuestion(currentQIndex - 1);
+      }
+    }
+
+    function toggleHint() {
+      const box = document.getElementById('hintBox');
+      box.classList.toggle('hidden');
+      renderMathInPage();
+    }
+
+    function resetTest() {
+      userSelections = {};
+      verifiedQuestions = {};
+      remainingSeconds = totalExamDurationMinutes * 60;
+      currentQIndex = 0;
+      isExamActive = false;
+
+      if (timerInterval) clearInterval(timerInterval);
+
+      document.getElementById('activeExamContainer').classList.add('hidden');
+      document.getElementById('preExamScreen').classList.remove('hidden');
+      updatePreExamScreen();
+
+      showToast('Mock test reset to exam gate.', 'rotate-ccw');
+    }
+
+    /* =========================================================
+       FORMULA VAULT RENDERING & FILTERING
+       ========================================================= */
+    function renderFormulaCards(cards) {
+      const grid = document.getElementById('formulaGrid');
+      grid.innerHTML = '';
+
+      if (cards.length === 0) {
+        grid.innerHTML = `<div class="col-span-3 text-center py-10 text-slate-400 text-sm">No matching formulas found.</div>`;
+        return;
+      }
+
+      cards.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 hover:border-indigo-500/50 transition-all flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">
+                ${item.topic}
+              </span>
+              <button onclick="copyFormula('${item.formula.replace(/'/g, "\\'")}')" title="Copy expression" class="text-slate-400 hover:text-white p-1 rounded hover:bg-slate-700">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm mb-2">${item.title}</h4>
+            <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-700/60 math-block font-mono text-center text-indigo-200 text-sm my-2">
+              ${item.formula}
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 mt-2 border-t border-slate-700/50 pt-2 leading-relaxed">
+            <span class="text-amber-400 font-semibold">Insight:</span> ${item.notes}
+          </p>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+      renderMathInPage();
+    }
+
+    function filterFormulas() {
+      const search = document.getElementById('formulaSearch').value.toLowerCase();
+      const cat = document.getElementById('formulaCategorySelect').value;
+
+      const filtered = formulaVault.filter(item => {
+        const matchesCategory = (cat === 'all' || item.topic === cat);
+        const matchesQuery = item.title.toLowerCase().includes(search) || 
+                             item.notes.toLowerCase().includes(search) ||
+                             item.topic.toLowerCase().includes(search);
+        return matchesCategory && matchesQuery;
+      });
+
+      renderFormulaCards(filtered);
+    }
+
+    function copyFormula(text) {
+      const temp = document.createElement("textarea");
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast('LaTeX formula copied to clipboard!', 'clipboard');
+    }
+
+    /* =========================================================
+       AI PHYSICS MENTOR (GEMINI API)
+       ========================================================= */
+    function setQueryAndAsk(question) {
+      document.getElementById('mentorInput').value = question;
+      askMentor();
+    }
+
+    async function askMentor() {
+      const inputEl = document.getElementById('mentorInput');
+      const question = inputEl.value.trim();
+      if (!question) return;
+
+      const conv = document.getElementById('mentorConversation');
+      const sendBtn = document.getElementById('mentorSendBtn');
+
+      // User Message bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = "flex items-start gap-3 justify-end";
+      userBubble.innerHTML = `
+        <div class="bg-indigo-600 p-4 rounded-2xl rounded-tr-sm text-white max-w-[85%]">
+          <p class="text-sm">${escapeHTML(question)}</p>
+        </div>
+        <div class="w-8 h-8 rounded-lg bg-indigo-800 flex items-center justify-center shrink-0 text-white font-bold text-xs">
+          You
+        </div>
+      `;
+      conv.appendChild(userBubble);
+      inputEl.value = '';
+      conv.scrollTop = conv.scrollHeight;
+
+      // Loading bubble for AI
+      const aiBubble = document.createElement('div');
+      aiBubble.className = "flex items-start gap-3";
+      const loadingId = 'loader-' + Date.now();
+      aiBubble.innerHTML = `
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center shrink-0 text-white font-bold text-xs">
+          AI
+        </div>
+        <div id="${loadingId}" class="bg-slate-800/90 p-4 rounded-2xl rounded-tl-sm border border-slate-700 text-slate-200 max-w-[85%]">
+          <div class="flex items-center gap-2 text-indigo-400 text-xs">
+            <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+            <span>Analyzing physics principles & deriving solution...</span>
+          </div>
+        </div>
+      `;
+      conv.appendChild(aiBubble);
+      lucide.createIcons();
+      conv.scrollTop = conv.scrollHeight;
+
+      sendBtn.disabled = true;
+
+      // Gemini API Request
+      const systemPrompt = `You are a world-class Indian National Physics Olympiad (NSEP & INPhO) Professor and mentor. 
+Your goal is to provide rigorous, accurate, and conceptually deep explanations for physics students.
+Use standard LaTeX syntax for formulas with $ for inline and $$ for display blocks.
+Be concise, clear, point out standard Olympiad caveats/approximations, and reference relevant conservation laws.`;
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const payload = {
+        contents: [{ parts: [{ text: question }] }],
+        systemInstruction: {
+          parts: [{ text: systemPrompt }]
+        }
+      };
+
+      try {
+        const res = await fetchWithRetry(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        const candidate = data.candidates?.[0];
+        const answerText = candidate?.content?.parts?.[0]?.text || "I was unable to derive a response. Please refine your query.";
+
+        // Format raw text into readable markdown/HTML
+        const container = document.getElementById(loadingId);
+        container.innerHTML = formatMarkdown(answerText);
+        renderMathInPage();
+      } catch (err) {
+        console.error(err);
+        const container = document.getElementById(loadingId);
+        container.innerHTML = `<span class="text-rose-400">Connection error: Unable to contact Gemini. Please verify your connection or try again.</span>`;
+      } finally {
+        sendBtn.disabled = false;
+        conv.scrollTop = conv.scrollHeight;
+      }
+    }
+
+    /* =========================================================
+       PROBLEM FORGE (CUSTOM OLYMPIAD QUESTION GENERATOR)
+       ========================================================= */
+    async function generateCustomProblem() {
+      const topic = document.getElementById('genTopic').value;
+      const format = document.getElementById('genFormat').value;
+      const btn = document.getElementById('forgeBtn');
+      const placeholder = document.getElementById('forgePlaceholder');
+      const card = document.getElementById('forgeCard');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Forging...`;
+      lucide.createIcons();
+
+      const isSingle = format.includes('Single');
+      const prompt = `Generate a rigorous, authentic National Standard Examination in Physics (NSEP Stage 1) Olympiad level problem on the topic: "${topic}".
+Format: ${isSingle ? 'Single Correct Option (Part A1, 4 choices, exactly 1 correct)' : 'Multiple Correct Options (Part A2, 4 choices, 1 to 4 correct)'}.
+Test deep conceptual understanding, calculus, or vector physics at the NSEP/INPhO level.
+For LaTeX formulas, use standard $...$ notation. Double-escape backslashes if needed for valid JSON.`;
+
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: {
+              topic: { type: "STRING" },
+              type: { type: "STRING" },
+              statement: { type: "STRING" },
+              options: {
+                type: "ARRAY",
+                items: { type: "STRING" }
+              },
+              correct_indices: {
+                type: "ARRAY",
+                items: { type: "INTEGER" }
+              },
+              hint: { type: "STRING" },
+              solution: { type: "STRING" }
+            },
+            required: ["topic", "type", "statement", "options", "correct_indices", "hint", "solution"]
+          }
+        }
+      };
+
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      try {
+        const response = await fetchWithRetry(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (!jsonText) {
+          throw new Error("No response content from model");
+        }
+
+        const problem = parseSafeJSON(jsonText);
+        // Force the type correctly if not matching
+        problem.type = isSingle ? 'A1' : 'A2';
+        problem.topic = topic;
+        currentForgedProblem = problem;
+
+        placeholder.classList.add('hidden');
+        card.classList.remove('hidden');
+
+        const optLetters = ['A', 'B', 'C', 'D'];
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                ${problem.type === 'A1' ? 'Part A1 (Single Correct: +3, -1)' : 'Part A2 (Multi-Correct: +4, 0)'}
+              </span>
+              <span class="text-xs text-slate-400">${problem.topic}</span>
+            </div>
+            <button onclick="addForgedToMock()" class="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition active:scale-95">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add to Active Mock
+            </button>
+          </div>
+
+          <div class="text-base font-medium text-white my-3 leading-relaxed">
+            ${problem.statement}
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-4">
+            ${problem.options.map((opt, i) => `
+              <div class="p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 flex items-start gap-2.5 text-xs text-slate-300">
+                <span class="w-5 h-5 rounded bg-slate-800 font-mono font-bold flex items-center justify-center shrink-0 border border-slate-700 text-white">${optLetters[i]}</span>
+                <span class="mt-0.5">${opt}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Reveal Solution Toggle -->
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <button onclick="toggleElement('forgedSolBox')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i> Toggle Answer & Derivation
+            </button>
+            <span class="text-xs text-slate-400">Correct: ${problem.correct_indices.map(i => optLetters[i] || i).join(', ')}</span>
+          </div>
+
+          <div id="forgedSolBox" class="hidden p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-2 mt-3">
+            <p><strong>Strategic Hint:</strong> ${problem.hint}</p>
+            <div class="border-t border-slate-800/80 pt-2">
+              <strong>Full Solution:</strong>
+              <div class="mt-1">${problem.solution}</div>
+            </div>
+          </div>
+        `;
+
+        lucide.createIcons();
+        renderMathInPage();
+        showToast('New Olympiad question forged!', 'sparkles');
+
+      } catch (err) {
+        console.error("Forge error:", err);
+        showToast('Question generation failed. Retrying with a different topic often works.', 'alert-triangle');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i> Forge Problem`;
+        lucide.createIcons();
+      }
+    }
+
+    function addForgedToMock() {
+      if (!currentForgedProblem) {
+        showToast('No forged problem to add.', 'alert-circle');
+        return;
+      }
+      const problem = currentForgedProblem;
+
+      // Determine domain based on topic
+      let inferredDomain = 'Mechanics';
+      const t = (problem.topic || '').toLowerCase();
+      if (t.includes('electr') || t.includes('induct') || t.includes('circuit') || t.includes('gauss')) {
+        inferredDomain = 'Electrodynamics';
+      } else if (t.includes('optic') || t.includes('wave') || t.includes('polar')) {
+        inferredDomain = 'Optics';
+      } else if (t.includes('thermo') || t.includes('gas') || t.includes('entropy')) {
+        inferredDomain = 'Thermodynamics';
+      } else if (t.includes('modern') || t.includes('photon') || t.includes('relativ') || t.includes('broglie')) {
+        inferredDomain = 'Modern Physics';
+      }
+
+      const newQ = {
+        id: masterQuestionBank.length + 1,
+        type: problem.type || 'A1',
+        domain: inferredDomain,
+        topic: problem.topic,
+        statement: problem.statement,
+        options: problem.options,
+        correct: problem.correct_indices,
+        hint: problem.hint,
+        solution: problem.solution
+      };
+
+      masterQuestionBank.push(newQ);
+      mockQuestions.push(newQ);
+
+      renderPalette();
+      showToast('Problem successfully added to Mock Test!', 'check-circle');
+      switchTab('mock');
+      loadQuestion(mockQuestions.length - 1);
+    }
+
+    /* Helper function to safely parse LLM JSON responses with LaTeX backslashes */
+    function parseSafeJSON(rawStr) {
+      // 1. Strip markdown code fences if model enclosed it in ```json ... ```
+      let cleaned = rawStr.trim();
+      if (cleaned.startsWith('```')) {
+        cleaned = cleaned.replace(/^```[a-z]*\s*/i, '').replace(/\s*```$/, '');
+      }
+
+      // 2. Direct parse attempt
+      try {
+        return JSON.parse(cleaned);
+      } catch (e1) {
+        // 3. Clean invalid unescaped backslashes commonly produced in raw LaTeX formulas
+        try {
+          const sanitized = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
+          return JSON.parse(sanitized);
+        } catch (e2) {
+          console.error("JSON parse failure. Raw string was:\n", cleaned);
+          throw e2;
+        }
+      }
+    }
+
+    /* =========================================================
+       UTILITY HELPERS
+       ========================================================= */
+    async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const res = await fetch(url, options);
+          if (res.ok) return res;
+        } catch (err) {
+          if (i === retries - 1) throw err;
+        }
+        await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
+      }
+      return fetch(url, options);
+    }
+
+    function toggleElement(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    function escapeJSONParam(obj) {
+      return JSON.stringify(obj).replace(/"/g, '&quot;');
+    }
+
+    function formatMarkdown(text) {
+      // Basic markdown processor preserving LaTeX delimiters
+      let formatted = text
+        .replace(/### (.*?)\n/g, '<h4 class="text-sm font-bold text-amber-300 mt-3 mb-1">$1</h4>')
+        .replace(/## (.*?)\n/g, '<h3 class="text-base font-bold text-white mt-4 mb-2">$1</h3>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="text-slate-300">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="bg-slate-900 px-1.5 py-0.5 rounded text-indigo-300 font-mono text-xs">$1</code>')
+        .replace(/\n\n/g, '<br><br>');
+      return formatted;
+    }
+
+    function showToast(message, iconName = 'info') {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMessage');
+      const icon = document.getElementById('toastIcon');
+
+      msg.innerText = message;
+      icon.setAttribute('data-lucide', iconName);
+      lucide.createIcons();
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
